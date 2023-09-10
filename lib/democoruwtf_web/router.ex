@@ -18,6 +18,14 @@ defmodule DemocoruwtfWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/card", CardLive.Index, :index
+    live "/card/new", CardLive.Index, :new
+    live "/card/:id/edit", CardLive.Index, :edit
+
+    live "/card/:id", CardLive.Show, :show
+    live "/card/:id/show/edit", CardLive.Show, :edit
+
   end
 
   # Other scopes may use custom stacks.
