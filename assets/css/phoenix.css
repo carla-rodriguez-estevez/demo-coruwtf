@@ -102,7 +102,7 @@ select {
   height: 3.8rem;
   padding: .6rem 1.0rem .7rem;
   width: 100%;
-  font-size: 1.0em;
+  font-size: 1.6rem;
 }
 
 input[type='color']:focus,
@@ -122,25 +122,29 @@ input:not([type]):focus,
 textarea:focus,
 select:focus {
   border-color: #0069d9;
-  outline: 0
+  outline: 0;
+  font-size: 1.6rem;
 }
 
 select {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23d1d1d1" d="M0,0l6,8l6-8"/></svg>') center right no-repeat;
-  padding-right: 3.0rem
+  padding-right: 3.0rem;
+  font-size: 1.6rem;
 }
 
 select:focus {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%230069d9" d="M0,0l6,8l6-8"/></svg>')
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%230069d9" d="M0,0l6,8l6-8"/></svg>');
+  font-size: 1.6rem;
 }
 
 select[multiple] {
   background: none;
-  height: auto
+  height: auto;
+  font-size: 1.6rem;
 }
 
 textarea {
-  min-height: 6.5rem
+  min-height: 6.5rem;
 }
 
 label,
@@ -401,7 +405,9 @@ fieldset,
 input,
 select,
 textarea {
-  margin-bottom: 1.5rem
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+
 }
 
 blockquote,
@@ -568,6 +574,7 @@ pre {
 
 select {
   width: auto;
+  font-size: 1.6rem;
 }
 
 /* Phoenix promo and logo */

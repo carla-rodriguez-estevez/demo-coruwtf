@@ -15,7 +15,7 @@
     <%= error_tag f, :content %>
 
     <%= label f, :state %>
-    <%= text_input f, :state %>
+    <%= select f, :state, states: ["", "todo", "in progress", "done"] %>
     <%= error_tag f, :state %>
 
     <div class="self-center	 text-white mt-4 bg-teal-500 border-0 py-4 px-6 focus:outline-none hover:bg-teal-600 rounded text-2xl max-w-fit">
