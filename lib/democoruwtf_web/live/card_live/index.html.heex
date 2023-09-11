@@ -1,4 +1,7 @@
-<h1>Listing Card</h1>
+<div class=" flex flex-col justify-center mt-6">
+<div class="flex justify-center items-center">
+<h1 class="  mt-6 underline underline-offset-3 decoration-8 decoration-teal-400 dark:decoration-green-600 text-2xl sm:text-4xl font-extrabold leading-none tracking-tight text-gray-900  dark:text-white">Our kanban</h1>
+</div>
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.card_index_path(@socket, :index)}>
@@ -13,29 +16,30 @@
   </.modal>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Content</th>
-      <th>State</th>
+<table  class="m-12 rounded-l-lg">
+  <thead class="text-white rounded-l-lg">
+    <tr class="bg-teal-400  table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+      <th class="text-center md:text-3xl">Content</th>
+      <th  class="text-center md:text-3xl">State</th>
 
       <th></th>
     </tr>
   </thead>
   <tbody id="card">
     <%= for card <- @card_collection do %>
-      <tr id={"card-#{card.id}"}>
-        <td><%= card.content %></td>
-        <td><%= card.state %></td>
+      <tr class='hover:bg-gray-100' id={"card-#{card.id}"}>
+        <td class="text-center mx-8"><%= card.content %></td>
+        <td class="text-center mx-8"><%= card.state %></td>
 
-        <td>
-          <span><%= live_redirect "Show", to: Routes.card_show_path(@socket, :show, card) %></span>
-          <span><%= live_patch "Edit", to: Routes.card_index_path(@socket, :edit, card) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: card.id, data: [confirm: "Are you sure?"] %></span>
+        <td class="flex flex-col justify-center items-center ">
+          <span class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline"><%= live_patch "Edit", to: Routes.card_index_path(@socket, :edit, card) %></span>
+          <span class="inline-flex items-center font-medium text-red-600 dark:text-red-600 hover:underline"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: card.id, data: [confirm: "Are you sure?"] %></span>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<span><%= live_patch "New Card", to: Routes.card_index_path(@socket, :new) %></span>
+<div class="flex justify-center items-center">
+<span class="flex justify-center items-center w-64 text-white my-4 bg-teal-500 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded text-3xl"><%= live_patch "New Card", to: Routes.card_index_path(@socket, :new) %></span>
+</div>
+</div>
