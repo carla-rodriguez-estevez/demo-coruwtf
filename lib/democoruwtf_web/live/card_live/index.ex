@@ -6,7 +6,13 @@ defmodule DemocoruwtfWeb.CardLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :card_collection, list_card())}
+     if connected?(socket), do: Cards.subscribe()
+
+      assigns = [
+      card_collection: list_card()
+    ]
+
+    {:ok, assign(socket, assigns)}
   end
 
   @impl true
@@ -38,6 +44,35 @@ defmodule DemocoruwtfWeb.CardLive.Index do
     {:ok, _} = Cards.delete_card(card)
 
     {:noreply, assign(socket, :card_collection, list_card())}
+  end
+
+    @impl true
+  def handle_info({:card_created, card}, socket) do
+    {:noreply,
+     update(socket, :card_collection, fn card_collection ->
+       [card | card_collection]
+     end)}
+  end
+
+  @impl true
+
+  def handle_info({:card_updated, card}, socket) do
+    list = Enum.filter(socket.assigns.card_collection, fn el -> el.id != card.id end)
+
+    {:noreply,
+     update(socket, :card_collection, fn card ->
+       [card | list]
+     end)}
+  end
+
+  def handle_info({:card_deleted, card}, socket) do
+    list = Enum.filter(socket.assigns.card_collection, fn el -> el.id != card.id end)
+
+    assigns = [
+      card_collection: list
+    ]
+
+    {:noreply, assign(socket, assigns)}
   end
 
   defp list_card do

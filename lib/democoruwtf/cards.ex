@@ -53,6 +53,7 @@ defmodule Democoruwtf.Cards do
     %Card{}
     |> Card.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:card_created)
   end
 
   @doc """
@@ -71,6 +72,7 @@ defmodule Democoruwtf.Cards do
     card
     |> Card.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:card_updated)
   end
 
   @doc """
@@ -86,7 +88,7 @@ defmodule Democoruwtf.Cards do
 
   """
   def delete_card(%Card{} = card) do
-    Repo.delete(card)
+    Repo.delete(card) |> broadcast(:card_deleted)
   end
 
   @doc """
@@ -101,4 +103,16 @@ defmodule Democoruwtf.Cards do
   def change_card(%Card{} = card, attrs \\ %{}) do
     Card.changeset(card, attrs)
   end
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(Democoruwtf.PubSub, "cards")
+  end
+
+  defp broadcast({:error, _reason} = error, _event), do: error
+
+  defp broadcast({:ok, post}, event) do
+    Phoenix.PubSub.broadcast(Democoruwtf.PubSub, "cards", {event, post})
+    {:ok, post}
+  end
+
 end
